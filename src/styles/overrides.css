@@ -1,27 +1,4 @@
-@import "tailwindcss";
-
-:root {
-  /* lock the app to a light theme for consistency */
-  --background: #f9fafb; /* tailwind gray-50 */
-  --foreground: #111827; /* tailwind gray-900 */
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-/* disable automatic dark mode switch to avoid color conflicts with third-party libs */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Third-party library visual consistency overrides (inlined to avoid import resolution issues) */
+/* Third-party library visual consistency overrides */
 :root { --accent: #7c3aed; }
 
 /* Syncfusion PDF Viewer tweaks */
@@ -38,13 +15,43 @@ body {
 .tabulator .tabulator-header { background-color: #ffffff; border-bottom: 1px solid #e5e7eb; }
 .tabulator .tabulator-header .tabulator-col { border-right: 1px solid #f1f5f9; }
 .tabulator .tabulator-row { background-color: #ffffff; }
-.tabulator .tabulator-row:nth-child(even) { background-color: #fcfcfd; }
+.tabulator .tabulator-row:nth-child(even) { background-color: #fbfcfd; }
 .tabulator .tabulator-cell { border-right: 1px solid #f1f5f9; }
 .tabulator .tabulator-footer { background-color: #ffffff; border-top: 1px solid #e5e7eb; }
 
 /* Utility buttons in grid toolbar */
 .grid-toolbar button { border-color: #e5e7eb; color: #374151; }
 .grid-toolbar button:hover { background-color: #f9fafb; }
+
+/* Color tuning to match uploaded image */
+:root {
+  --grid-header-bg: #f8fafc; /* very light gray-blue header */
+  --grid-border: #e5e7eb;     /* soft gray border */
+  --grid-cell-border: #f1f5f9; /* ultra light separators */
+  --grid-text: #374151;        /* gray-700 */
+  --grid-muted: #6b7280;       /* gray-500 */
+}
+.tabulator { color: var(--grid-text); border-color: var(--grid-border); }
+.tabulator .tabulator-header { background-color: var(--grid-header-bg); border-bottom-color: var(--grid-border); }
+.tabulator .tabulator-header .tabulator-col { border-right-color: var(--grid-cell-border); }
+.tabulator .tabulator-cell { border-right-color: var(--grid-cell-border); }
+.tabulator .tabulator-row:hover { background-color: #f3f4f6; }
+.tabulator .tabulator-col .tabulator-col-title { color: var(--grid-text); }
+.tabulator .tabulator-footer { background-color: #ffffff; border-top-color: var(--grid-border); }
+
+/* Force table base background to pure white */
+.tabulator,
+.tabulator .tabulator-tableholder,
+.tabulator .tabulator-table { background-color: #ffffff !important; }
+.tabulator .tabulator-row { background-color: #ffffff !important; }
+.tabulator .tabulator-row:nth-child(even) { background-color: #ffffff !important; }
+
+/* Force header & footer to pure white */
+.tabulator .tabulator-header,
+.tabulator .tabulator-footer { background-color: #ffffff !important; }
+.tabulator .tabulator-footer .tabulator-paginator,
+.tabulator .tabulator-footer .tabulator-page-size,
+.tabulator .tabulator-footer .tabulator-pages { background-color: #ffffff !important; }
 
 /* Extended Tabulator styling to closely match the uploaded image */
 .tabulator { border-radius: 10px; }
