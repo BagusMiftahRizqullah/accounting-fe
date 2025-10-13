@@ -73,3 +73,32 @@
 .tabulator .tabulator-row .tabulator-cell:first-child,
 .tabulator .tabulator-row .tabulator-cell:nth-child(2),
 .tabulator .tabulator-row .tabulator-cell:nth-child(3) { text-align: center; }
+
+/* ---- PDF Viewer fine-tuning to better match uploaded image ---- */
+/* Make toolbar cleaner and tighter */
+.e-pv-toolbar {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 8px !important;
+}
+.e-pv-toolbar .e-tbar-btn, .e-pv-toolbar .e-tbar-btn .e-btn { border-radius: 10px; }
+
+/* Compact zoom dropdown width */
+.e-pv-toolbar .e-input-group.e-pv-zoom-drop-down { min-width: 80px; }
+
+/* Dashed page container like the screenshot */
+.e-pv-viewer .e-pv-page-container {
+  border: 2px dashed #e5e7eb; /* gray-200 */
+  border-radius: 12px;
+  margin: 12px;
+}
+
+/* Center toolbar items vertically */
+.e-pv-toolbar .e-toolbar-items { align-items: center; }
+
+/* Sizing & spacing agar mendekati gambar referensi */
+.e-pv-toolbar .e-tbar-btn { padding: 6px 8px !important; margin-right: 6px; }
+.e-pv-toolbar .e-tbar-btn:last-child { margin-right: 0; }
+.e-pv-toolbar .e-tbar-btn .e-icons,
+.e-pv-toolbar .e-tbar-btn .e-btn .e-icons { font-size: 16px; }
+.e-pv-toolbar .e-input-group.e-pv-zoom-drop-down .e-input { font-size: 12px; }

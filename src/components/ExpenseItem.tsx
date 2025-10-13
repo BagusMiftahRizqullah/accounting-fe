@@ -2,7 +2,7 @@
 import React from "react";
 import PdfViewer from "@/components/PdfViewer";
 import ReceiptGrid from "@/components/ReceiptGrid";
-import { ChevronDown, Package, CreditCard, Calculator, StickyNote, Upload, Receipt, FileText } from "lucide-react";
+import { ChevronDown, Package, CreditCard, Calculator, StickyNote, Upload, Receipt, FileText, MoreVertical } from "lucide-react";
 
 function ExpandableSection({
   title,
@@ -43,6 +43,7 @@ function ExpandableSection({
 
 export default function ExpenseItem() {
   const [pdfUrl, setPdfUrl] = React.useState<string | null>(null);
+  const [uploadedFile, setUploadedFile] = React.useState<File | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const revokeCurrentUrl = React.useCallback(() => {
@@ -62,6 +63,7 @@ export default function ExpenseItem() {
       revokeCurrentUrl();
       const url = URL.createObjectURL(file);
       setPdfUrl(url);
+      setUploadedFile(file);
     } else {
       // eslint-disable-next-line no-alert
       alert("Please upload a PDF file.");
@@ -84,6 +86,7 @@ export default function ExpenseItem() {
   const clearViewer = () => {
     revokeCurrentUrl();
     setPdfUrl(null);
+    setUploadedFile(null);
   };
   // Toggle render mode: standalone (client) vs server-backed
   const [standalone, setStandalone] = React.useState(true);
@@ -304,6 +307,47 @@ export default function ExpenseItem() {
                   resourceUrl="https://cdn.syncfusion.com/ej2/31.1.23/dist/ej2-pdfviewer-lib"
                   serviceUrl="https://document.syncfusion.com/web-services/pdf-viewer/api/pdfviewer/"
                 />
+                {/* Uploaded Files list */}
+                {uploadedFile && (
+                  <div className="mt-4 border rounded-lg">
+                    <div className="flex items-center justify-between px-3 py-2">
+                      <span className="text-xs text-gray-700">Uploaded Files (1)</span>
+                      <button
+                        type="button"
+                        className="text-gray-600 hover:text-gray-800"
+                        aria-label="Uploaded files actions"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <MoreVertical className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="px-3 py-2 border-t">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-gray-200 bg-white">
+                            <FileText className="w-4 h-4 text-gray-600" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-sm text-gray-800 truncate max-w-[220px]">{uploadedFile.name}</span>
+                            <span className="text-xs text-gray-500">{(uploadedFile.size / 1024 / 1024).toFixed(2)} MB · PDF</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            className="px-2 h-8 rounded-md border border-gray-200 bg-white text-xs"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              clearViewer();
+                            }}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <div
