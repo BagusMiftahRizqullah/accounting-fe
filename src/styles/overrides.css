@@ -102,3 +102,119 @@
 .e-pv-toolbar .e-tbar-btn .e-icons,
 .e-pv-toolbar .e-tbar-btn .e-btn .e-icons { font-size: 16px; }
 .e-pv-toolbar .e-input-group.e-pv-zoom-drop-down .e-input { font-size: 12px; }
+
+/* ---- Responsive PDF Viewer Styles ---- */
+/* Mobile styles (screens < 768px) */
+@media (max-width: 767px) {
+  .e-pv-toolbar {
+    padding: 4px 6px !important;
+    flex-wrap: wrap;
+  }
+  
+  .e-pv-toolbar .e-tbar-btn {
+    padding: 4px 6px !important;
+    margin-right: 4px;
+    min-width: 32px;
+    height: 32px;
+  }
+  
+  .e-pv-toolbar .e-tbar-btn .e-icons,
+  .e-pv-toolbar .e-tbar-btn .e-btn .e-icons {
+    font-size: 14px;
+  }
+  
+  .e-pv-toolbar .e-input-group.e-pv-zoom-drop-down {
+    min-width: 60px;
+  }
+  
+  .e-pv-toolbar .e-input-group.e-pv-zoom-drop-down .e-input {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+  
+  .e-pv-viewer .e-pv-page-container {
+    margin: 8px;
+    border-radius: 8px;
+  }
+  
+  /* Hide some toolbar items on very small screens */
+  .e-pv-toolbar .e-tbar-btn[title*="Selection"],
+  .e-pv-toolbar .e-tbar-btn[title*="Pan"] {
+    display: none;
+  }
+}
+
+/* Tablet styles (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .e-pv-toolbar {
+    padding: 5px 7px !important;
+  }
+  
+  .e-pv-toolbar .e-tbar-btn {
+    padding: 5px 7px !important;
+    margin-right: 5px;
+  }
+  
+  .e-pv-toolbar .e-tbar-btn .e-icons,
+  .e-pv-toolbar .e-tbar-btn .e-btn .e-icons {
+    font-size: 15px;
+  }
+  
+  .e-pv-toolbar .e-input-group.e-pv-zoom-drop-down {
+    min-width: 70px;
+  }
+  
+  .e-pv-viewer .e-pv-page-container {
+    margin: 10px;
+    border-radius: 10px;
+  }
+}
+
+/* Large desktop styles (1024px+) */
+@media (min-width: 1024px) {
+  .e-pv-toolbar {
+    padding: 6px 8px !important;
+  }
+  
+  .e-pv-toolbar .e-tbar-btn {
+    padding: 6px 8px !important;
+    margin-right: 6px;
+  }
+  
+  .e-pv-viewer .e-pv-page-container {
+    margin: 12px;
+    border-radius: 12px;
+  }
+}
+
+/* Responsive container adjustments */
+#pdf-viewer {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto;
+}
+
+/* Ensure PDF content is responsive */
+.e-pv-viewer {
+  width: 100% !important;
+  overflow-x: auto;
+}
+
+.e-pv-viewer .e-pv-page-canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Responsive annotation toolbar */
+@media (max-width: 767px) {
+  .e-pv-annotation-toolbar {
+    flex-wrap: wrap;
+    padding: 4px !important;
+  }
+  
+  .e-pv-annotation-toolbar .e-tbar-btn {
+    margin: 2px !important;
+    min-width: 30px;
+    height: 30px;
+  }
+}

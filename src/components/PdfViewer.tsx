@@ -55,10 +55,21 @@ export default function PdfViewer({
 }: PdfViewerProps) {
   const viewerRef = useRef<PdfViewerComponent | null>(null);
   const [pageInfo, setPageInfo] = useState<{ current: number; count: number }>({ current: 1, count: 1 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // no-op; component mounts client-side only
+    // Check if mobile on mount and resize
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+
 
   const onDocumentLoaded = (args: { documentPageCount: number }) => {
     setPageInfo((p) => ({ ...p, count: args.documentPageCount }));
@@ -75,7 +86,7 @@ export default function PdfViewer({
     switch (id) {
       case "customDeleteDocument": {
         // Attempt to unload the current document (mimic Delete)
-        const inst: any = viewerRef.current as any;
+        const inst = viewerRef.current as unknown as { unload?: () => void; destroy?: () => void };
         if (inst?.unload) inst.unload();
         else if (inst?.destroy) inst.destroy();
         // eslint-disable-next-line no-console
@@ -97,20 +108,44 @@ export default function PdfViewer({
         resourceUrl={standalone ? resourceUrl : undefined}
         // File to view (URL or server document ID)
         documentPath={documentPath}
-        ref={(inst) => {
+        ref={(inst: PdfViewerComponent | null) => {
           // store instance for external/custom actions
-          viewerRef.current = inst as unknown as PdfViewerComponent;
+          viewerRef.current = inst;
         }}
         // Toolbar customization to resemble the provided reference
         toolbarSettings={{
           showTooltip: true,
-          toolbarItems: [
-            // Custom left label: Page X of Y
+          toolbarItems: isMobile ? [
+            // Mobile: Simplified toolbar with essential items only
             {
               id: "pageLabel",
               align: "Left",
               type: "Input",
-              // @ts-expect-error: Syncfusion accepts React template nodes for custom items
+              template: () => (
+                <span className="flex items-center gap-1 text-xs text-gray-700">
+                  <span
+                    aria-hidden
+                    className="inline-flex h-6 w-6 items-center justify-center rounded-lg"
+                    style={{ backgroundColor: "var(--accent)" }}
+                  >
+                    <img src="/file.svg" alt="" className="h-3 w-3" />
+                  </span>
+                  <span className="hidden sm:inline">Page {pageInfo.current} of {pageInfo.count}</span>
+                  <span className="sm:hidden">{pageInfo.current}/{pageInfo.count}</span>
+                </span>
+              ),
+            },
+            "PageNavigationTool",
+            "MagnificationTool",
+            "SearchOption",
+            "DownloadOption",
+            { id: "customDeleteDocument", text: "⋯", align: "Right" },
+          ] : [
+            // Desktop: Full toolbar
+            {
+              id: "pageLabel",
+              align: "Left",
+              type: "Input",
               template: () => (
                 <span className="flex items-center gap-2 text-xs text-gray-700">
                   <span
@@ -134,7 +169,6 @@ export default function PdfViewer({
             "UndoRedoTool",
             "DownloadOption",
             "PrintOption",
-            // Right-side custom action example
             { id: "customDeleteDocument", text: "Delete", align: "Right" },
           ],
         }}
@@ -157,7 +191,11 @@ export default function PdfViewer({
         toolbarClick={onToolbarClick}
         documentLoad={onDocumentLoaded}
         pageChanged={onPageChanged}
-        style={{ height: typeof height === "number" ? `${height}px` : height, width: typeof width === "number" ? `${width}px` : width }}
+        style={{ 
+          height: typeof height === "number" ? `${height}px` : height, 
+          width: typeof width === "number" ? `${width}px` : width,
+          minHeight: isMobile ? "400px" : "600px"
+        }}
       >
         <Inject
           services={[

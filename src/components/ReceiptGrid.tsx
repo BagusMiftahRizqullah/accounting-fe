@@ -166,9 +166,9 @@ export default function ReceiptGrid() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between gap-3 pb-3 grid-toolbar">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 grid-toolbar">
         {/* Search */}
-        <div className="w-full max-w-xs">
+        <div className="w-full sm:max-w-xs">
           <div className="relative">
             <input
               type="text"
@@ -183,34 +183,35 @@ export default function ReceiptGrid() {
           </div>
         </div>
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
             onClick={() => setFiltersOpen((v) => !v)}
           >
             <FilterIcon className="w-4 h-4 text-gray-600" />
-            Filter
+            <span className="hidden xs:inline">Filter</span>
           </button>
           <button
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
             onClick={() => setShowColumnPicker((v) => !v)}
           >
             <Settings className="w-4 h-4 text-gray-600" />
-            Columns
+            <span className="hidden xs:inline">Columns</span>
           </button>
           <button
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
             onClick={downloadCsv}
           >
             <Download className="w-4 h-4 text-gray-600" />
-            Export
+            <span className="hidden xs:inline">Export</span>
           </button>
           <button
-            className="inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
+            className="inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-[10px] border border-gray-200 bg-white hover:bg-gray-50"
             onClick={addRow}
           >
             <Plus className="w-4 h-4 text-gray-600" />
-            Add Receipt
+            <span className="hidden sm:inline">Add Receipt</span>
+            <span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
@@ -244,7 +245,7 @@ export default function ReceiptGrid() {
       {showColumnPicker && (
         <div className="mb-3 rounded-lg border border-gray-200 p-3 bg-white">
           <p className="text-xs text-gray-500 mb-2">Toggle columns</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 text-sm">
             {[
               { label: "Receipt Number", field: "receiptNumber" },
               { label: "Date", field: "date" },

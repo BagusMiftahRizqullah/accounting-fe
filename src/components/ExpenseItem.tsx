@@ -92,18 +92,18 @@ export default function ExpenseItem() {
   const [standalone, setStandalone] = React.useState(true);
   return (
     <>
-    <section className="mt-6 bg-white border rounded-xl p-6 shadow-sm">
+    <section className="mt-6 bg-white border rounded-xl p-4 sm:p-6 shadow-sm">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-purple-100 text-purple-600 border border-purple-200">
             <Receipt className="w-4 h-4" />
           </span>
           <h2 className="text-lg font-semibold text-gray-800">Expense Item</h2>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           <span className="px-3 py-1.5 text-xs rounded-md border border-purple-200 bg-purple-50 text-purple-700">1. [New Expense]</span>
-          <button className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white flex items-center gap-1">
+          <button className="w-full sm:w-auto px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white flex items-center justify-center gap-1">
             Add
             <ChevronDown className="w-4 h-4 text-gray-500" />
           </button>
@@ -111,9 +111,9 @@ export default function ExpenseItem() {
       </div>
 
       {/* Content */}
-      <div className="mt-4 grid grid-cols-12 gap-6">
+      <div className="mt-4 flex flex-col lg:grid lg:grid-cols-12 gap-4 lg:gap-6">
         {/* Left: Accordion sections */}
-        <div className="col-span-12 lg:col-span-7 space-y-3">
+        <div className="lg:col-span-7 space-y-3">
           <ExpandableSection title="Basic Information" defaultOpen icon={<FileText className="w-3.5 h-3.5" />}>
             <div className="grid grid-cols-1 gap-4">
               <div>
@@ -258,16 +258,16 @@ export default function ExpenseItem() {
         </div>
 
           {/* Right: Receipt Upload / PDF Viewer */}
-        <div className="col-span-12 lg:col-span-5">
+        <div className="lg:col-span-5">
           <div className="rounded-xl border border-gray-200 bg-white p-4">
             {/* Toolbar */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-700">Page 1 of 1</span>
                 <button className="inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 bg-white text-gray-600">‹</button>
                 <button className="inline-flex items-center justify-center w-8 h-8 rounded-md border border-gray-200 bg-white text-gray-600">›</button>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                 {/* Mode toggle */}
                 <label className="flex items-center gap-2 text-xs text-gray-700">
                   <input
@@ -279,12 +279,12 @@ export default function ExpenseItem() {
                   Standalone Viewer
                 </label>
                 {pdfUrl ? (
-                  <button className="inline-flex items-center gap-1 px-2 h-8 rounded-md border border-gray-200 bg-white text-xs" onClick={clearViewer}>
+                  <button className="w-full sm:w-auto inline-flex items-center justify-center gap-1 px-2 h-8 rounded-md border border-gray-200 bg-white text-xs" onClick={clearViewer}>
                     Back to Upload
                   </button>
                 ) : (
                   <button
-                    className="inline-flex items-center gap-1 px-2 h-8 rounded-md border border-gray-200 bg-white text-xs"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1 px-2 h-8 rounded-md border border-gray-200 bg-white text-xs"
                     onClick={(e) => {
                       e.stopPropagation();
                       openFilePicker();
@@ -351,18 +351,18 @@ export default function ExpenseItem() {
               </div>
             ) : (
               <div
-                className="mt-4 rounded-xl border-2 border-dashed border-purple-300 bg-white p-8 flex flex-col items-center justify-center text-center cursor-pointer"
+                className="mt-4 rounded-xl border-2 border-dashed border-purple-300 bg-white p-4 sm:p-8 flex flex-col items-center justify-center text-center cursor-pointer"
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 onClick={openFilePicker}
               >
-                <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mb-3">
-                  <Upload className="w-5 h-5" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mb-3">
+                  <Upload className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <p className="text-sm text-gray-700">Click to upload or drag and drop files to upload a new receipt.</p>
+                <p className="text-xs sm:text-sm text-gray-700">Click to upload or drag and drop files to upload a new receipt.</p>
                 <p className="mt-1 text-xs text-gray-500">Valid formats: .pdf · 5MB limit per file</p>
                 <button
-                  className="mt-4 inline-flex items-center gap-2 px-3 h-9 rounded-md border border-purple-600 text-purple-700 bg-purple-50 text-sm"
+                  className="mt-4 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-3 h-9 rounded-md border border-purple-600 text-purple-700 bg-purple-50 text-sm"
                   onClick={(e) => {
                     e.stopPropagation();
                     openFilePicker();

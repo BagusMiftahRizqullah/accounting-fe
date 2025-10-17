@@ -123,11 +123,11 @@ function DropdownInput({ placeholder, options }: { placeholder: string; options:
 export default function ReportHeader() {
   const [statusChecked, setStatusChecked] = React.useState(false);
   return (
-    <section className="bg-white border rounded-xl p-6 mb-6 shadow-sm">
+    <section className="bg-white border rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 shadow-sm">
       <div className="flex items-center gap-2">
         <Building2 className="w-4 h-4 text-purple-600" />
         {/* Ubah menjadi ukuran heading */}
-        <h2 className="text-lg md:text-xl font-semibold text-gray-700">Report Header</h2>
+        <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-700">Report Header</h2>
       </div>
       <p className="text-xs text-gray-500 mt-1 mb-4">Complete the form below to submit your expense report for approval.</p>
 
@@ -147,7 +147,7 @@ export default function ReportHeader() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Kiri: Tags & Folder berada dalam satu kolom (dua field berdampingan) */}
           <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-4">
               <Field label="Tags">
                 <Input placeholder="Enter tags (comma-separated)" />
               </Field>
@@ -188,16 +188,25 @@ export default function ReportHeader() {
       </div>
 
       {/* Actions */}
-      <div className="mt-5 flex gap-2">
-        <button className="px-3 py-1.5 h-9 text-xs rounded-md bg-purple-600 text-white flex items-center gap-2 hover:bg-purple-700">
-          <User className="w-4 h-4" />
-          Submit on Behalf Of
-        </button>
-        <button className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white">Policy Documents</button>
-        <button className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white">Audit Trail</button>
-        <div className="ml-auto">
+      <div className="mt-5 flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col xs:flex-row gap-2 flex-1">
+          <button className="px-3 py-1.5 h-9 text-xs rounded-md bg-purple-600 text-white flex items-center justify-center gap-2 hover:bg-purple-700">
+            <User className="w-4 h-4" />
+            <span className="hidden xs:inline">Submit on Behalf Of</span>
+            <span className="xs:hidden">Submit</span>
+          </button>
+          <button className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white">
+            <span className="hidden xs:inline">Policy Documents</span>
+            <span className="xs:hidden">Policy</span>
+          </button>
+          <button className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white">
+            <span className="hidden xs:inline">Audit Trail</span>
+            <span className="xs:hidden">Audit</span>
+          </button>
+        </div>
+        <div className="sm:ml-auto">
           <button
-            className="px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white flex items-center gap-2"
+            className="w-full sm:w-auto px-3 py-1.5 h-9 text-xs rounded-md border border-gray-200 bg-white flex items-center justify-center gap-2"
             onClick={() => setStatusChecked((v) => !v)}
             aria-pressed={statusChecked}
           >
@@ -208,7 +217,8 @@ export default function ReportHeader() {
             >
               {statusChecked ? <Check className="w-4 h-4" /> : null}
             </span>
-            Show Status Overview
+            <span className="hidden xs:inline">Show Status Overview</span>
+            <span className="xs:hidden">Status</span>
           </button>
         </div>
       </div>

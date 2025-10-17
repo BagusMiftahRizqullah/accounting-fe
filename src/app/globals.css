@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Custom responsive breakpoints */
+@media (min-width: 475px) {
+  .xs\:inline { display: inline !important; }
+}
+
 :root {
   /* lock the app to a light theme for consistency */
   --background: #f9fafb; /* tailwind gray-50 */
