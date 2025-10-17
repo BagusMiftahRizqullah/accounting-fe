@@ -188,8 +188,8 @@ export default function ReportHeader() {
       </div>
 
       {/* Actions */}
-      <div className="mt-5 flex flex-col sm:flex-row gap-2">
-        <div className="flex flex-col xs:flex-row gap-2 flex-1">
+      <div className="mt-5 flex sm:flex-col flex-row gap-2">
+        <div className="flex xs:flex-col flex-row gap-2 flex-1">
           <button className="px-3 py-1.5 h-9 text-xs rounded-md bg-purple-600 text-white flex items-center justify-center gap-2 hover:bg-purple-700">
             <User className="w-4 h-4" />
             <span className="hidden xs:inline">Submit on Behalf Of</span>
